@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "ScoreManager.h"
 
-ScoreManager::ScoreManager() : _score(0)
+ScoreManager::ScoreManager() : _score(0),_resultScore(0)
 {
 
 }

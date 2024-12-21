@@ -7,7 +7,8 @@ namespace UISpace
 {
 	const float GAME_UI_FONT_SIZE = 30;
 	const float RESULT_UI_FONT_SIZE = 100;
-	const Vec2 DAFAULT_BUTTON_SIZE = { 500,100 };
+	const float BUTTON_UI_FONT_SIZE = 60;
+	const Vec2 DAFAULT_BUTTON_SIZE = { 500.f,100.f };
 }
 
 class UIManager
@@ -17,6 +18,7 @@ private:
 	TimerMaanger m_timerManager;
 	Font m_gamefont;
 	Font m_resultFont;
+	Font m_ButtanFont;
 	void UITitleDraw();
 public:
 	UIManager();

@@ -4,23 +4,28 @@
 UIManager::UIManager() :
 	m_gamefont(UISpace::GAME_UI_FONT_SIZE),
 	m_resultFont(UISpace::RESULT_UI_FONT_SIZE),
+	m_ButtanFont(UISpace::BUTTON_UI_FONT_SIZE),
 	m_titleStartButton(
 		Rect{
-			Scene::Width() / 2,
+			Scene::Width() / 2 -
+			(int)UISpace::DAFAULT_BUTTON_SIZE.x / 2,
 			Scene::Height() / 4 * 3,
-			UISpace::DAFAULT_BUTTON_SIZE.x,
-			UISpace::DAFAULT_BUTTON_SIZE.y
+			(int)UISpace::DAFAULT_BUTTON_SIZE.x,
+			(int)UISpace::DAFAULT_BUTTON_SIZE.y
 		},
-		Palette::Aqua
+		Palette::Aqua,
+		U"Start"
 	),
 	m_returnTitleButton(
 				Rect{
-			Scene::Width() / 2,
+			Scene::Width() / 2 -
+			(int)UISpace::DAFAULT_BUTTON_SIZE.x / 2,
 			Scene::Height() / 4 * 3,
-			UISpace::DAFAULT_BUTTON_SIZE.x,
-			UISpace::DAFAULT_BUTTON_SIZE.y
+			(int)UISpace::DAFAULT_BUTTON_SIZE.x,
+			(int)UISpace::DAFAULT_BUTTON_SIZE.y
 		},
-		Palette::Aqua
+		Palette::Aqua,
+		U"ReturnTitle"
 	)
 {
 }
@@ -57,6 +62,7 @@ void UIManager::UIResultInit()
 void UIManager::UIResultUpdate()
 {
 	m_scoreManager.ResultDraw(m_resultFont);
+	m_returnTitleButton .Draw(m_ButtanFont);
 }
 
 /// @brief 制限時間の確認
@@ -82,8 +88,8 @@ void UIManager::ResetUI()
 
 void UIManager::UITitleDraw()
 {
-	m_resultFont(U"タイトル").drawAt(Scene::Center(), Palette::Black);
-	m_titleStartButton.Draw();
+	m_resultFont(U"墾田永年私財法").drawAt(Scene::Center(), Palette::Black);
+	m_titleStartButton.Draw(m_ButtanFont);
 }
 
 float UIManager::CurrentTime()

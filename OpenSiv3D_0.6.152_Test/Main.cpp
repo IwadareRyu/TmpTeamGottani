@@ -65,7 +65,7 @@ void Main()
 		if (sceneController.M_Scene() == SceneState::TitleScene)
 		{
 			uiManager.UITitleUpdate();
-			if (MouseL.up())
+			if (uiManager.m_titleStartButton.ButtonClicked())
 			{
 				sceneController.ChangeScene(SceneState::GameScene);
 			}
@@ -140,7 +140,7 @@ void Main()
 		else
 		{
 			uiManager.UIResultUpdate();
-			if (MouseL.up())
+			if (uiManager.m_titleStartButton.ButtonClicked())
 			{
 				uiManager.ResetUI();
 				sceneController.ChangeScene(SceneState::TitleScene);
