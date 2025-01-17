@@ -1,6 +1,7 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.15
 #include "SceneController.h"
 #include "UIManager.h"
+#include "AnimalUnion.h"
 
 void Main()
 {
@@ -60,6 +61,8 @@ void Main()
 
 	UIManager uiManager;
 
+	AnimalUnion animalUnion;
+
 	while (System::Update())
 	{
 		if (sceneController.M_Scene() == SceneState::TitleScene)
@@ -112,6 +115,11 @@ void Main()
 					uiManager.AddScoreRef(30);
 					// ボディ ID と絵文字のインデックスの組を対応テーブルに追加する
 					table.emplace(bodies.back().id(), std::exchange(index, Random(polygons.size() - 1)));
+				}
+
+				if (MouseR.down())
+				{
+					animalUnion.ChackUnionTest(bodies,table,&world,polygons,&uiManager);
 				}
 
 				// すべてのボディを描画する

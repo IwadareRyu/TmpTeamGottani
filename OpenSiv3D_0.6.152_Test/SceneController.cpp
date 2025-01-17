@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "SceneController.h"
 
-SceneController::SceneController() : m_sceneState(SceneState::TitleScene), rect({0,0,1920,1080}), m_currentTime(0.f)
+SceneController::SceneController() : m_sceneState(SceneState::GameScene), rect({ 0,0,1920,1080 }), m_currentTime(0.f)
 {
 };
 
