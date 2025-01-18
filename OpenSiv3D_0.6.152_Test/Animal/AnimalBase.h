@@ -25,7 +25,7 @@ public:
 	void SetPosition(const Vec3& position);
 
 	// 画像を取得
-	Image GetImage() const;
+	Texture GetImage() const;
 
 	// スコアを取得
 	int GetScore() const;

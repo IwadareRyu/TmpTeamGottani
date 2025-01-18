@@ -22,7 +22,7 @@ void Animal::SetPosition(const Vec3& position)
 	position_ = position;
 }
 
-Image Animal::GetImage() const
+Texture Animal::GetImage() const
 {
 	return image_;
 }
