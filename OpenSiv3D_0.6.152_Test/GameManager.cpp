@@ -57,10 +57,9 @@ void GameManager::Update()
 
 	// 毎フレームの動物の更新処理
 	_collection.UpdateAnimals();
-
 	if (MouseL.down()) {
 		if (MouseL.down()) {
-			Animal* newAnimal = new AnimalCat(Cursor::Pos(), textures_[GameManager::TextureIndex::snake], 10, 10);
+			Animal* newAnimal = new AnimalCat(Cursor::PosF(), textures_[GameManager::TextureIndex::snake], 10, 10);
 			physics_manager.CreateBall(newAnimal);
 		}
 	}

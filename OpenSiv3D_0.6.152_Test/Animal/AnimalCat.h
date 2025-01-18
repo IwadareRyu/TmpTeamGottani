@@ -7,7 +7,7 @@ private:
 	Vec3 velocity_;  // 動物の速度（重力を適用するために使用）
 
 public:
-	AnimalCat(const Vec3& position, const Texture& image, const int score, const float size)
+	AnimalCat(const Vec2& position, const Texture& image, const int score, const float size)
 		: Animal(position, image, score, size), velocity_(0, 0, 0)  // 初期速度を0に設定
 	{
 	}
