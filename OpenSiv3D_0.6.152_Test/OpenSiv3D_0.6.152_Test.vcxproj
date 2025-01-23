@@ -135,6 +135,7 @@
     </ClCompile>
     <ClCompile Include="TimerMaanger.cpp" />
     <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="Unioncpp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -352,9 +353,11 @@
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TimerMaanger.h" />
     <ClInclude Include="UIManager.h" />
+    <ClInclude Include="Union.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\example\obj\blacksmith.obj">

@@ -16,14 +16,18 @@ void Player::Update()
 	// 上下左右キーで移動
 	if (KeyLeft.pressed())
 	{
-		animal_pos.x -= delta;
-		cursor_pos.x -= delta;
+		if (cursor_pos.x > 50) {
+			animal_pos.x -= delta;
+			cursor_pos.x -= delta;
+		}
 	}
 
 	if (KeyRight.pressed())
 	{
-		animal_pos.x += delta;
-		cursor_pos.x += delta;
+		if (cursor_pos.x < 550) {
+			animal_pos.x += delta;
+			cursor_pos.x += delta;
+		}
 	}
 
 	// [C] キーが押されたら中央に戻る

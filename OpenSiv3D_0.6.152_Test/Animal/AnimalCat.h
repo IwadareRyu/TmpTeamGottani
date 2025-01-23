@@ -18,6 +18,9 @@ public:
 
 	void Update(Vec2 setPos) override
 	{
+		if (position_.y > 200) {
+			is_spown = true;
+		}
 		SetPosition(setPos);
 		Draw();
 	}

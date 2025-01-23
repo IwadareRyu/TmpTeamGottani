@@ -4,7 +4,7 @@
 #include "Player.h"  // Playerクラスをインクルード
 
 Stage::Stage(PhysicsManager* physics)
-	: border_line_(Line(0, 600, 800, 600)), //ボーダーライン
+	: border_line_(Line(0, 150, 800, 150)), //ボーダーライン
 	  physics_manager(physics)
 {
 	// Player を make_unique を使って生成し、Stage のポインタを渡す
@@ -37,7 +37,7 @@ void Stage::Update()
 void Stage::Draw() const
 {
 	//drop_zone_.draw(ColorF(0.2, 0.8, 0.2, 0.5));
-	//border_line_.draw(ColorF(0.8, 0.1, 0.1));
+	border_line_.draw(ColorF(0.8, 0.1, 0.1));
 
 	animal_container_.DrawAnimals();
 
@@ -58,8 +58,12 @@ void Stage::AddAnimalToStage(std::unique_ptr<Animal> animal)
 
 bool Stage::IsAnimalBeyondBorder(const Animal& animal) const
 {
-	// 動物がボーダーラインより下に落ちたかを判定
-	return animal.GetSize() + animal.GetPosition().y > border_line_.begin.y;
+	if (animal.is_spown) {
+		//Print << U"animal{}: line{}"_fmt(animal.GetPosition().y, border_line_.begin.y);
+ 		auto a = animal.GetPosition().y;
+		// 動物がボーダーラインより下に落ちたかを判定
+ 		return animal.GetPosition().y < border_line_.begin.y;
+	}
 }
 
 //void Stage::GenerateNextAnimal()

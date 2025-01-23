@@ -41,4 +41,6 @@ public:
 	virtual void Start() = 0;
 	virtual void Update(Vec2 setPos) = 0;
 	virtual void Draw() const = 0;
+
+	bool is_spown = false;
 };
