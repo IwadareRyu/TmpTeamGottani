@@ -12,12 +12,12 @@ float Animal::GetSize() const
 }
 
 
-Vec3 Animal::GetPosition() const
+Vec2 Animal::GetPosition() const
 {
 	return position_;
 }
 
-void Animal::SetPosition(const Vec3& position)
+void Animal::SetPosition(const Vec2& position)
 {
 	position_ = position;
 }

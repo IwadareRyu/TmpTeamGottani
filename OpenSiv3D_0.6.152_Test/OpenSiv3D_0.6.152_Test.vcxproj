@@ -115,11 +115,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimalDataBase.cpp" />
     <ClCompile Include="AnimalUnion.cpp" />
+    <ClCompile Include="Animal\AnimalBase.cpp" />
+    <ClCompile Include="Animal\AnimalCat.cpp" />
+    <ClCompile Include="Animal\AnimalCollection.cpp" />
+    <ClCompile Include="Animal\PhysicsManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneController.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -331,10 +340,18 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimalDataBase.h" />
     <ClInclude Include="AnimalUnion.h" />
+    <ClInclude Include="Animal\AnimalBase.h" />
+    <ClInclude Include="Animal\AnimalCat.h" />
+    <ClInclude Include="Animal\AnimalCollection.h" />
+    <ClInclude Include="Animal\PhysicsManager.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TimerMaanger.h" />
     <ClInclude Include="UIManager.h" />

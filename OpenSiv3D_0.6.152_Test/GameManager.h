@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Singleton.h"
 #include "Animal/AnimalCollection.h"
+#include "Animal/PhysicsManager.h"
 
 class GameManager : public Singleton<GameManager>
 {
@@ -41,6 +42,6 @@ private:
 	std::unique_ptr<Player> _player;  // プレイヤー
 	AnimalCollection _collection;     // 動物コレクション
 	std::unique_ptr<Stage> _stage;    // ステージ
-	PhysicsManager physics_manager;
+	PhysicsManager* physics_manager = new PhysicsManager();;
 	Array<Texture> textures_;
 };

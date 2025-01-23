@@ -1,11 +1,12 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
-
 #include "Stage.h"
+#include "Animal/PhysicsManager.h"
+#include "Animal/AnimalCat.h"
 
 void Player::Start()
 {
-	pos_ = Scene::Center(); // プレイヤーの初期位置を中央に設定
+	
 }
 
 void Player::Update()
@@ -15,28 +16,21 @@ void Player::Update()
 	// 上下左右キーで移動
 	if (KeyLeft.pressed())
 	{
-		pos_.x -= delta;
+		animal_pos.x -= delta;
+		cursor_pos.x -= delta;
 	}
 
 	if (KeyRight.pressed())
 	{
-		pos_.x += delta;
-	}
-
-	if (KeyUp.pressed())
-	{
-		pos_.y -= delta;
-	}
-
-	if (KeyDown.pressed())
-	{
-		pos_.y += delta;
+		animal_pos.x += delta;
+		cursor_pos.x += delta;
 	}
 
 	// [C] キーが押されたら中央に戻る
 	if (KeyC.down())
 	{
-		pos_ = Scene::Center();
+		animal_pos.x = Scene::Center().x;
+		cursor_pos.x = Scene::Center().x;
 	}
 
 	// [スペース] キーが押されたら動物をドロップする
@@ -45,28 +39,18 @@ void Player::Update()
 		DropAnimal(); // 動物を落とす処理
 	}
 
-	// プレイヤーの描画
-	Circle{pos_, 50}.draw();
 }
 
 void Player::Draw() const
 {
-	if (current_animal_)
-	{
-		// 動物を描画
-		current_animal_->Draw();
-	}
+	texture_.scaled(0.2).rotated(-90_deg).draw(cursor_pos);
+	current_texture.texture_.scaled(current_texture.size_ * 0.1f).draw(animal_pos);
 }
 
 void Player::DropAnimal()
 {
-	if (current_animal_)
-	{
-		// プレイヤーの位置を使用して動物をステージに追加
-		Vec3 animal_position(pos_.x, pos_.y, 0); // プレイヤーの現在位置から生成
-		current_animal_->SetPosition(animal_position); // 動物の位置を設定
-
-		// ステージに動物を追加し、プレイヤーの動物をクリア
-		stage_->AddAnimalToStage(std::move(current_animal_));
-	}
+	Animal* newAnimal = new AnimalCat(animal_pos, current_texture.texture_, current_texture.score_, current_texture.size_);
+	physics_manager->CreateBall(newAnimal);
+	int randomIndex = Random<int>(2);
+	current_texture = *(animal_database->animal_data[randomIndex]);
 }

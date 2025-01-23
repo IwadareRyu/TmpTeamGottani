@@ -2,6 +2,9 @@
 
 #include "Player.h"  // Playerクラスを完全にインクルード
 #include "Animal/AnimalCollection.h"
+#include <Siv3D.hpp>
+
+class PhysicsManager;
 
 class Stage
 {
@@ -10,10 +13,10 @@ private:
 	RectF drop_zone_;                    // プレイヤーが動物を落とせる場所
 	Line border_line_;                   // ボーダーライン
 	std::unique_ptr<Animal> next_animal_; // 次の動物
-	std::unique_ptr<Player> player_;      // プレイヤー
+	//std::unique_ptr<Player> player_;      // プレイヤー
 
 public:
-	Stage();
+	Stage(PhysicsManager* physics);
 
 	void Initialize();
 	void Update();
@@ -26,5 +29,5 @@ public:
 	void AddAnimalToStage(std::unique_ptr<Animal> animal);
 
 	bool IsAnimalBeyondBorder(const Animal& animal) const;
-	void GenerateNextAnimal();
+	PhysicsManager* physics_manager;
 };
