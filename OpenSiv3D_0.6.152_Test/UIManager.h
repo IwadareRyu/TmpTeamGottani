@@ -30,7 +30,7 @@ public:
 	void UIResultInit();
 	void UIResultUpdate();
 	bool ChackTime();
-	void AddScoreRef(float score);
+	void AddScoreRef(int score);
 	void ResetUI();
 	float CurrentTime();
 	int32 Score();

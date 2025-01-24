@@ -39,14 +39,6 @@ void UIManager::UITitleUpdate()
 /// @brief ゲームシーンのUpdate
 void UIManager::UIGameUpdate()
 {
-	if (KeySpace.pressed())
-	{
-		AddScoreRef(1000000);
-	}
-	if (KeyShift.pressed())
-	{
-		AddScoreRef(-1000000);
-	}
 	m_timerManager.ElapsedTime();
 	m_scoreManager.GameDraw(m_gamefont);
 	m_timerManager.Draw(m_gamefont);
@@ -75,7 +67,7 @@ bool UIManager::ChackTime()
 
 /// @brief Score追加の際呼ぶメソッド
 /// @param score 加算するスコアの値
-void UIManager::AddScoreRef(float score)
+void UIManager::AddScoreRef(int score)
 {
 	m_scoreManager.AddScore(score);
 }
@@ -88,7 +80,7 @@ void UIManager::ResetUI()
 
 void UIManager::UITitleDraw()
 {
-	m_resultFont(U"墾田永年私財法").drawAt(Scene::Center(), Palette::Black);
+	m_resultFont(U"アニマルゲーム").drawAt(Scene::Center(), Palette::White);
 	m_titleStartButton.Draw(m_ButtanFont);
 }
 

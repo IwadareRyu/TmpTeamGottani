@@ -1,48 +1,32 @@
-﻿#include "stdafx.h"
-#include "AnimalUnion.h"
+﻿#include "AnimalUnion.h"
 
-AnimalUnion::AnimalUnion()
-{
 
-}
-
-void AnimalUnion::ChackUnionTest(Array<P2Body>& bodies,
-		HashTable<P2BodyID, size_t>& table, P2World* world, Array<MultiPolygon>& polygons, UIManager* score)
+void AnimalUnion::ChackUnionTest(std::vector<Animal*>& animals, PhysicsManager* physics,
+		Array<P2Body>& bodies, UIManager* score)
 {
 	if (bodies.size() < 2) return;
 	for (auto it_i = bodies.begin(); it_i != bodies.end() - 1;)
 	{
 		for (auto it_j = it_i + 1; it_j != bodies.end();)
 		{
-			auto i_table = table.find(it_i->id());
-			auto j_table = table.find(it_j->id());
-			if (i_table != table.end() && j_table != table.end())
+			int animal_i = std::distance(bodies.begin(),it_i);
+			int animal_j = std::distance(bodies.begin(), it_j);
+			bool isUnion = ChackUnion(animals[animal_i], animals[animal_j]);
+			if (isUnion)
 			{
-				/// 当たり判定の際に使う場所(return以外)
-				bool isUnion = ChackUnion(i_table->second, j_table->second);
-				if (isUnion)
+				auto animal = animals[animal_i];
+				score->AddScoreRef(animal->GetScore());
+				auto unionObject = Union(animal);
+				//it_iとit_jのオブジェクトの削除
+				animals.erase(animals.begin() + animal_j);
+				it_j = bodies.erase(it_j);
+				animals.erase(animals.begin() + animal_i);
+				it_i = bodies.erase(it_i);
+				if (unionObject->GetSize() >= 1)
 				{
-					score->AddScoreRef(ScoreID[i_table->second]);
-					auto unionObject = Union(i_table->second, *it_i, j_table->second, *it_j, world, polygons);
-					//it_iとit_jのオブジェクトの削除
-					table.erase(j_table->first);
-					it_j = bodies.erase(it_j);
-					table.erase(i_table->first);
-					it_i = bodies.erase(it_i);
-					if (unionObject.getBodyType() == P2BodyType::Dynamic)
-					{
-						bodies << unionObject;
-						table.emplace(
-							bodies.back().id(),
-							i_table->second + 1);
-					}
-					return;
+					physics->CreateBall(unionObject);
 				}
-				else
-				{
-					it_j++;
-				}
-				///
+				return;
 			}
 			else
 			{
@@ -53,29 +37,38 @@ void AnimalUnion::ChackUnionTest(Array<P2Body>& bodies,
 	}
 }
 
-bool AnimalUnion::ChackUnion(size_t target1, size_t target2)
+bool AnimalUnion::ChackUnion(Animal* target1, Animal* target2)
 {
-	if (target1 == target2)
+	if (target1->GetImage() == target2->GetImage() && target1->CheckCollision(*target2))
 	{
 		return true;
 	}
 	return false;
 }
 
-P2Body AnimalUnion::Union(
-	size_t target1ID, P2Body target1Body,
-	size_t target2ID, P2Body target2Body,
-	P2World* world, Array<MultiPolygon>& polygons)
+Animal* AnimalUnion::Union(Animal* target)
 {
-
-	size_t index = target1ID + 1;
-	if (index >= polygons.size())
+	int index = 0;
+	for (auto i = 0; i < animal_dataBase->animal_data.size(); i++)
 	{
-		auto body = world->createPolygons(P2Kinematic,target1Body.getPos(), polygons[index - 1], P2Material{0.1, 0.0, 1.0});
-		return body;
+		if (target->GetImage() == animal_dataBase->animal_data[i]->texture_)
+		{
+			index = i + 1;
+			break;
+		}
+	}
+	if (index >= animal_dataBase->animal_data.size())
+	{
+		auto data = animal_dataBase->animal_data[0];
+		
+		Animal* newAnimal = new AnimalCat(target->GetPosition(),data->texture_, data->score_, 0);
+		return newAnimal;
 	}
 	else
 	{
-		return world->createPolygons(P2Dynamic, target1Body.getPos(), polygons[index], P2Material{0.1, 0.0, 1.0});
+		auto data = animal_dataBase->animal_data[index];
+
+		Animal* newAnimal = new AnimalCat(target->GetPosition(), data->texture_, data->score_, data->size_);
+		return newAnimal;
 	}
 }
