@@ -2,6 +2,7 @@
 
 #include "Player.h"  // Playerクラスを完全にインクルード
 #include "Animal/AnimalCollection.h"
+#include "AnimalUnion.h"
 #include <Siv3D.hpp>
 
 class PhysicsManager;
@@ -16,7 +17,7 @@ private:
 	//std::unique_ptr<Player> player_;      // プレイヤー
 
 public:
-	Stage(PhysicsManager* physics);
+	Stage(PhysicsManager* physics,UIManager* ui);
 
 	void Initialize();
 	void Update();
@@ -30,4 +31,6 @@ public:
 
 	bool IsAnimalBeyondBorder(const Animal& animal) const;
 	PhysicsManager* physics_manager;
+	UIManager* ui_manager;
+	AnimalUnion* animal_union = nullptr;
 };

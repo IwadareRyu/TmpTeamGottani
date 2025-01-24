@@ -1,11 +1,10 @@
 ﻿#include "Stage.h"
 #include "GameManager.h"
 #include "Animal/AnimalCat.h"
-#include "Player.h"  // Playerクラスをインクルード
 
-Stage::Stage(PhysicsManager* physics)
+Stage::Stage(PhysicsManager* physics, UIManager* ui)
 	: border_line_(Line(0, 150, 800, 150)), //ボーダーライン
-	  physics_manager(physics)
+	  physics_manager(physics),ui_manager(ui)
 {
 	// Player を make_unique を使って生成し、Stage のポインタを渡す
 	//player_ = std::make_unique<Player>(this, physics_manager);
@@ -13,6 +12,7 @@ Stage::Stage(PhysicsManager* physics)
 
 void Stage::Initialize()
 {
+	animal_union = new AnimalUnion();
 	//GenerateNextAnimal();
 	//player_->SetAnimal(std::move(next_animal_));
 }
@@ -32,6 +32,8 @@ void Stage::Update()
 			GameManager::GetInstance()->GameEnd();
 		}
 	}
+
+	animal_union->ChackUnionTest(physics_manager->balls,physics_manager,physics_manager->bodys,ui_manager);
 }
 
 void Stage::Draw() const

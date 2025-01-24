@@ -18,7 +18,7 @@ void Button::Draw(Font buttonFont) const
 {
 	if (m_buttonObj.mouseOver())
 	{
-		if (m_buttonObj.leftClicked())
+		if (m_buttonObj.leftPressed())
 		{
 			m_buttonObj.draw(m_buttonClickColor);
 		}

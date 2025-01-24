@@ -36,7 +36,7 @@ void GameManager::Start()
 	}
 	AnimalDataBase::GetInstance()->Init(textures_);
 	// ステージの生成
-	_stage = std::make_unique<Stage>(physics_manager);
+	_stage = std::make_unique<Stage>(physics_manager,ui_manager);
 	// プレイヤーの初期化、ステージを渡す
 	_player = std::make_unique<Player>(_stage.get(), physics_manager);
 	// ステージの初期化
@@ -45,26 +45,58 @@ void GameManager::Start()
 
 void GameManager::Update()
 {
-	// プレイヤーの更新
-	_player->Update();
+	switch (scene_manager->M_Scene())
+	{
+	case SceneState::TitleScene:
+		ui_manager->UITitleUpdate();
+		if (ui_manager->m_titleStartButton.ButtonClicked())
+		{
+			ui_manager->ResetUI();
+			scene_manager->ChangeScene(SceneState::GameScene, true);
+		}
+		break;
 
-	// 毎フレームの動物の更新処理
-	_collection.UpdateAnimals();
-	physics_manager->HandleCollisions();
-	physics_manager->Draw();
+	case SceneState::GameScene:
+		ui_manager->UIGameUpdate();
+		// プレイヤーの更新
+		_player->Update();
 
-	// ステージの更新処理
-	_stage->Update();
+		// 毎フレームの動物の更新処理
+		_collection.UpdateAnimals();
+		physics_manager->HandleCollisions();
+		physics_manager->Draw();
+
+		// ステージの更新処理
+		_stage->Update();
+
+		if (ui_manager->ChackTime())
+		{
+			ui_manager->UIResultInit();
+			GameEnd();
+		}
+		break;
+	case SceneState::ResultScene:
+		ui_manager->UIResultUpdate();
+		if (ui_manager->m_returnTitleButton.ButtonClicked())
+		{
+			scene_manager->ChangeScene(SceneState::TitleScene, true);
+			GameTitle();
+		}
+	}
 }
 
 void GameManager::Draw()
 {
-	// 描画処理
-	_collection.DrawAnimals();
-	_player->Draw();
+	if (scene_manager->M_Scene() == SceneState::GameScene)
+	{
+		// 描画処理
+		_collection.DrawAnimals();
+		_player->Draw();
 
-	// ステージの描画処理
-	_stage->Draw();
+		// ステージの描画処理
+		_stage->Draw();
+	}
+	scene_manager->FadeUpdate();
 }
 
 void GameManager::GameStart()
@@ -73,6 +105,14 @@ void GameManager::GameStart()
 
 void GameManager::GameEnd()
 {
+	scene_manager->ChangeScene(SceneState::ResultScene, true);
+}
+
+void GameManager::GameQuit()
+{
+	delete physics_manager;
+	delete scene_manager;
+	delete ui_manager;
 }
 
 void GameManager::GameRestart()
