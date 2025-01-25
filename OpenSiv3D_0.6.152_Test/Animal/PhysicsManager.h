@@ -18,6 +18,7 @@ public:
 
 	void CreateBall(Animal* animal);
 	void Draw();
+	void AnimalReset();
 	std::vector<Animal*> GetBalls(){ return balls; }
 
 	Array<P2Body> bodys;

@@ -9,7 +9,7 @@ void PhysicsManager::HandleCollisions() {
 		//2D 物理演算のワールドを更新する
 		world.update(Physics::stepTime);
 	}
-	for (size_t i = 0; i < bodys.size(); i++) {
+	for (int i = 0; i < bodys.size(); i++) {
 		balls[i]->Update(bodys[i].getPos());
 	}
 	ground.draw(Palette::Green);
@@ -25,4 +25,9 @@ void PhysicsManager::Draw() {
 		ball->Draw();
 	}
 	box.draw(ColorF{ 0.3, 0.8, 0.5 });
+}
+
+void PhysicsManager::AnimalReset() {
+	balls.clear();
+	bodys.clear();
 }
