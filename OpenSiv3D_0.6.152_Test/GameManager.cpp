@@ -52,6 +52,7 @@ void GameManager::Update()
 		if (ui_manager->m_titleStartButton.ButtonClicked())
 		{
 			ui_manager->ResetUI();
+			physics_manager->AnimalReset();
 			scene_manager->ChangeScene(SceneState::GameScene, true);
 		}
 		break;
@@ -110,6 +111,8 @@ void GameManager::GameEnd()
 
 void GameManager::GameQuit()
 {
+	delete _stage->animal_union;
+	physics_manager->AnimalReset();
 	delete physics_manager;
 	delete scene_manager;
 	delete ui_manager;

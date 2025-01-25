@@ -14,12 +14,14 @@ void AnimalUnion::ChackUnionTest(std::vector<Animal*>& animals, PhysicsManager* 
 			bool isUnion = ChackUnion(animals[animal_i], animals[animal_j]);
 			if (isUnion)
 			{
-				auto animal = animals[animal_i];
-				score->AddScoreRef(animal->GetScore());
-				auto unionObject = Union(animal);
+				Animal* animali = animals[animal_i];
+				Animal* animalj = animals[animal_j];				score->AddScoreRef(animali->GetScore());
+				auto unionObject = Union(animali);
 				//it_iとit_jのオブジェクトの削除
+				delete animalj;
 				animals.erase(animals.begin() + animal_j);
 				it_j = bodies.erase(it_j);
+				delete animali;
 				animals.erase(animals.begin() + animal_i);
 				it_i = bodies.erase(it_i);
 				if (unionObject->GetSize() >= 1)

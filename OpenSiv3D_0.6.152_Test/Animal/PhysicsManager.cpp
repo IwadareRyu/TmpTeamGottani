@@ -28,6 +28,10 @@ void PhysicsManager::Draw() {
 }
 
 void PhysicsManager::AnimalReset() {
-	balls.clear();
+	for (auto it = balls.begin(); it != balls.end();)
+	{
+		delete *it;
+		it = balls.erase(it);
+	}
 	bodys.clear();
 }
