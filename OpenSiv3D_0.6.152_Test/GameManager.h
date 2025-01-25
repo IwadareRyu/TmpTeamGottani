@@ -9,18 +9,7 @@
 class GameManager : public Singleton<GameManager>
 {
 public:
-	enum TextureIndex {
-		elephant,  //ゾウ
-		giraffe,   //キリン
-		hippo,     //カバ
-		monkey,    //サル
-		panda,     //パンダ
-		parrot,    //トリ
-		penguin,   //ペンギン
-		pig,       //ブタ
-		rabbit,    //ウサギ
-		snake,     //ヘビ
-	};
+
 
 	GameManager();
 	~GameManager();

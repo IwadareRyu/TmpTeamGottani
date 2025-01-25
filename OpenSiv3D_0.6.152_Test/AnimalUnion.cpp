@@ -9,7 +9,7 @@ void AnimalUnion::ChackUnionTest(std::vector<Animal*>& animals, PhysicsManager* 
 	{
 		for (auto it_j = it_i + 1; it_j != bodies.end();)
 		{
-			int animal_i = std::distance(bodies.begin(),it_i);
+			int animal_i  = std::distance(bodies.begin(),it_i);
 			int animal_j = std::distance(bodies.begin(), it_j);
 			bool isUnion = ChackUnion(animals[animal_i], animals[animal_j]);
 			if (isUnion)

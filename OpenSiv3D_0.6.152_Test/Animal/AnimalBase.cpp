@@ -30,5 +30,6 @@ Texture Animal::GetImage() const
 bool Animal::CheckCollision(const Animal& other) const
 {
 	// 簡単な距離ベースの接触判定
-	return std::abs(size_ - other.GetSize()) < 5.0;
+	float distance = position_.distanceFrom(other.GetPosition());
+	return distance < (size_ * 10 + other.GetSize() * 10);
 }
